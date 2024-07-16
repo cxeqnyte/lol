@@ -1,0 +1,39 @@
+====================================
+Sisi Client
+- TextArea = txt_isipesan_client
+- TextField = txt_pesan_client
+- Button = btn_sendto_client
+====================================
+
+package ujian_lol;
+import java.io.*;
+import java.net.*;
+
+public class SisiClient extends javax.swing.JFrame {
+    static Socket s;
+    static DataInputStream din;
+    static DataOutputStream dout;
+
+    try{
+        s = new Socket("127.0.0.1", 1201);
+        din = new DataInputStream(s.getInputStream());
+        dout = new DataOutputStream(s.getOutputStream());
+        String pesanmasuk = "";
+        while (!pesanmasuk.equals("keluar")) {
+            pesanmasuk = din.readUTF();
+            txt_isipesan_client.setText(txt_isipesan_client.getText().trim()+"\nServer : " + pesanmasuk);
+        }
+    } catch(Excaption e){
+
+    }
+}
+
+private void btn_sendto_clientActionPerformed(java.awt.event.ActionEvent evt){
+    try{
+        String msgout = "";
+        msgout = txt_pesan_client.getText().trim();
+        dout.writeUTF(msgout);
+    } catch (Exception e){
+        System.err.println("Terjadi error dalam pengiriman pesan");
+    }
+}
