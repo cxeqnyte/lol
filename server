@@ -1,3 +1,10 @@
+==========================================
+Sisi Server
+○ TextArea = txt_isipesan_server
+○ TextField = txt_pesan_server
+○ Button = btn_sendto_server
+==========================================
+
 package ujian_lol;
 import java.io.*;
 import java.net.*;
