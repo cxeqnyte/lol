@@ -1,0 +1,35 @@
+package ujian_lol;
+import java.io.*;
+import java.net.*;
+
+public class SisiServer extends javax.swing.JFrame {
+    static ServerSocket ss;
+    static Socket s;
+    static DataInputStream din;
+    static DataOutputStream dout;
+
+    String pesanmasuk = "";
+    try{
+        ss = new ServerSocket (1201);
+        s = ss.accept();
+        din = new DataInputStream(s.getInputStream());
+        dout = new DataOutputStream(s.getOutputStream());
+
+        while (!pesanmasuk.equals("keluar")) {
+            pesanmasuk = din.readUTF();
+            txt_isipesan_server.setText(txt_isipesan_server.getText().trim()+"\nClient : " + pesanmasuk);
+        }
+    } catch(Excaption e){
+
+    }
+}
+
+private void btn_sendto_serverActionPerformed(java.awt.event.ActionEvent evt){
+    try{
+        String msgout = "";
+        msgout = txt_pesan_server.getText().trim();
+        dout.writeUTF(msgout);
+    } catch (Exception e){
+        System.err.println("Terjadi error dalam pengiriman pesan");
+    }
+}
